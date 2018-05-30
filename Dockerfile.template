@@ -1,7 +1,7 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-node
 
 # Install apt deps
-RUN apt-get clean && apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get clean && apt-get update && apt-get upgrade -y --force-yes && apt-get install -y --force-yes \
   wget \
   curl \
   apt-utils \
@@ -19,7 +19,7 @@ RUN apt-get clean && apt-get update && apt-get upgrade -y && apt-get install -y 
 # We need wimtools from debian unstable, but everything else (above) should be stable only
 RUN echo "deb http://deb.debian.org/debian sid main" > /etc/apt/sources.list.d/debian-unstable.list \
  && echo 'APT::Default-Release "testing";' > /etc/apt/apt.conf.d/default \
- && apt-get update && apt-get install -y -t unstable wimtools \
+ && apt-get update && apt-get install -y --force-yes -t unstable wimtools \
  && rm -rf /var/lib/apt/lists/* \
  && rm /etc/apt/sources.list.d/debian-unstable.list
 
